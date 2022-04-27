@@ -27,13 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     private fun Greeting() {
-        Text(
-            text = "Hello Compose!",
-            style = MaterialTheme.typography.h5,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
-                .wrapContentWidth(Alignment.CenterHorizontally)
-        )
+        Text(text = "Hello World!, Compose")
     }
 }
