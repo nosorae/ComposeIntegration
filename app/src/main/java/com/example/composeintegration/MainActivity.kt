@@ -1,26 +1,23 @@
 package com.example.composeintegration
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
-import java.lang.Thread.sleep
+import androidx.compose.ui.unit.sp
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,18 +27,53 @@ class MainActivity : AppCompatActivity() {
 
         val cv = findViewById<ComposeView>(R.id.cv_compose)
         cv.setContent {
-            MessageCard(msg = Message("Author name", "Body"))
+            LiveDataTest()
         }
 
     }
 
+    // 기본 텍스트 띄워보기, 색깔 폰트는 일단 무시
     @Composable
-    private fun Greeting() {
-        Text(text = "Hello World!, Compose", color = Color.White)
+    private fun StateText(text: String) {
+        Text(text = "Current State is $text", color = Color.Red, fontSize = 30.sp)
     }
 
-    data class Message(val author: String, val body: String)
+    // ViewModel 과 함께 사용
+    @Composable
+    private fun StateFlowTest(
+        viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    ) {
+        val uiState by viewModel.stateFlow.collectAsState()
+        when(uiState) {
+            is ScreenState.Loading -> { StateText(("Loading")) }
+            is ScreenState.Success -> { StateText("Success") }
+            is ScreenState.Error -> { StateText("Error")}
+        }
+    }
 
+    // androidx.compose.runtime:runtime-livedata:$composeVersion 추가 해야함
+    @Composable
+    private fun LiveDataTest(
+        viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    ) {
+        val uiState by viewModel.liveData.observeAsState()
+        when(uiState) {
+            is ScreenState.Loading -> { StateText(("Loading")) }
+            is ScreenState.Success -> { StateText("Success") }
+            is ScreenState.Error -> { StateText("Error")}
+            else -> {}
+        }
+    }
+
+
+
+
+
+
+
+
+    // 아래는 연습용, 무시하셔도 됩니다.
+    data class Message(val author: String, val body: String)
     @Composable
     fun MessageCard(msg: Message) {
 
@@ -68,4 +100,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
+
+
 }
