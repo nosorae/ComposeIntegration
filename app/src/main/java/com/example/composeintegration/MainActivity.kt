@@ -22,23 +22,21 @@ import androidx.compose.ui.unit.sp
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
 
         val cv = findViewById<ComposeView>(R.id.cv_compose)
         cv.setContent {
             LiveDataTest()
         }
-
     }
 
-    // 기본 텍스트 띄워보기, 색깔 폰트는 일단 무시
+    // 기본 텍스트 띄워보기
     @Composable
     private fun StateText(text: String) {
         Text(text = "Current State is $text", color = Color.Red, fontSize = 30.sp)
     }
 
-    // ViewModel 과 함께 사용
+    // ViewModel 과 함께 사용 (StateFlow, LiveData)
     @Composable
     private fun StateFlowTest(
         viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
@@ -50,8 +48,6 @@ class MainActivity : AppCompatActivity() {
             is ScreenState.Error -> { StateText("Error")}
         }
     }
-
-    // androidx.compose.runtime:runtime-livedata:$composeVersion 추가 해야함
     @Composable
     private fun LiveDataTest(
         viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
@@ -64,12 +60,6 @@ class MainActivity : AppCompatActivity() {
             else -> {}
         }
     }
-
-
-
-
-
-
 
 
     // 아래는 연습용, 무시하셔도 됩니다.
