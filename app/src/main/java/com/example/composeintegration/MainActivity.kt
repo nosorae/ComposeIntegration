@@ -19,21 +19,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        val cv = findViewById<ComposeView>(R.id.cv_compose)
-//        cv.setContent {
-//            Greeting()
-//        }
+        val cv = findViewById<ComposeView>(R.id.cv_compose)
+        cv.setContent {
+            Greeting()
+        }
     }
 
-//    @Composable
-//    private fun Greeting() {
-//        Text(
-//            text = "Hello Compose!",
-//            style = MaterialTheme.typography.h5,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 10.dp)
-//                .wrapContentWidth(Alignment.CenterHorizontally)
-//        )
-//    }
+    @Composable
+    private fun Greeting() {
+        Text(
+            text = "Hello Compose!",
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .wrapContentWidth(Alignment.CenterHorizontally)
+        )
+    }
 }
