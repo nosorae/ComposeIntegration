@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,8 +26,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val cv = findViewById<ComposeView>(R.id.cv_compose)
-        cv.setContent {
-            LiveDataTest()
+        cv.apply {
+            // 뷰가 윈도우에서 분리될 때마다 컴포지션을 삭제하지 않고, 라이프사이클 종료시 컴포지션 삭제하는 옵션
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                LiveDataTest()
+            }
         }
     }
 
