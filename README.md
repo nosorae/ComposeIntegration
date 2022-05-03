@@ -4,10 +4,6 @@
 
 - 기존 activity, fragment, xml, 커스텀 뷰 등에, 컴포즈 요소를 더하기 가능
 - ViewModel, Navigation, Hilt, Paging 등의 다른 라이브러리와도 함께 사용 가능
-- 아주 간단한 샘플코드
-    
-    [https://github.com/nosorae/ComposeIntegration](https://github.com/nosorae/ComposeIntegration)
-    
 
 ## [**도입 시 고려요소]**
 
